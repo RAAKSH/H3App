@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 import CurrencyTableComponent from './CurrencyTableComponent'
 import { DownOutlined } from "@ant-design/icons";
-import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { Breadcrumb, Layout, Menu,Image} from "antd";
 const { Header, Content, Footer } = Layout;
 
-
-// const {
-//     token: { colorBgContainer },
-//   } = theme.useToken();
 const items = [
   {
     label: "Coin",
@@ -21,33 +17,33 @@ const items = [
     label: "Swap",
     key: "Swap Part",
   },
-
-//   {
-//     label: "Langauge",
-//     key: "SubMenu",
-//     children: [
-//       {
-//         type: "group",
-//         label: "",
-//         children: [
-//           {
-//             label: "English",
-//             key: "setting:1",
-//           },
-//           {
-//             label: "Italiano",
-//             key: "setting:2",
-//           },
-//           {
-//             label: "Nederlands",
-//             key: "settings:3",
-//           },
-//         ],
-//       }
-//     ],
-//     icon: <DownOutlined />,
-//   },
-
+{},
+  {
+    label: "Langauge",
+    key: "SubMenu",
+    children: [
+      {
+        type: "group",
+        label: "",
+        children: [
+          {
+            label: "English",
+            key: "setting:1",
+          },
+          {
+            label: "Italiano",
+            key: "setting:2",
+          },
+          {
+            label: "Nederlands",
+            key: "settings:3",
+          },
+        ],
+      }
+    ],
+    icon: <DownOutlined />,
+  },
+{},{},
   {
     label: "USD",
     key: "SubMenu",
@@ -58,15 +54,15 @@ const items = [
         children: [
           {
             label: "EGP",
-            key: "setting:1",
+            key: "egp",
           },
           {
             label: "EOS",
-            key: "setting:2",
+            key: "eos",
           },
           {
             label: "DZD ",
-            key: "settings:3",
+            key: "dzd",
           },
         ],
       }
@@ -87,7 +83,9 @@ export default class HomePage extends Component {
               mode="horizontal"
               defaultSelectedKeys={["1"]}
               items={items}
+              
             />
+
           </Header>
 
           <Content
@@ -100,13 +98,10 @@ export default class HomePage extends Component {
                 margin: "16px 0",
               }}
             >
-              {/* <Breadcrumb.Item>Home</Breadcrumb.Item> */}
+              <Breadcrumb.Item>Home</Breadcrumb.Item>
             </Breadcrumb>
             <div
               className="site-layout-content"
-              //   style={{
-              //     background: colorBgContainer,
-              //   }}
             >
              <CurrencyTableComponent />
             </div>

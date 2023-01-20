@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Table } from "antd";
-import { fetchAsset,fetchSymbol } from "../redux/Reducers/AssetReducer";
+import { fetchAsset, fetchSymbol } from "../redux/Reducers/AssetReducer";
 import { connect } from "react-redux";
+import { Spin  } from  'antd';
 
 export class CurrencyTableComponent extends Component {
   constructor(props) {
@@ -62,25 +63,42 @@ export class CurrencyTableComponent extends Component {
         key: "change",
       },
     ];
+    const precise = (x) => {
+      return Number(x).toPrecision(3);
+    };
     const data = this.props.Asset.Assets.data;
-    const rowData=data?.map((e,key)=>{
-       fetchSymbol(e.symbol)
-      return (
-        {
-        rank:e.rank,
-        name:e.name,
-        price:e.priceUsd,
-        marketcap:e.marketCapUsd,
-        vwap:e.vwap24Hr,
-        supply:e.supply,
-        volume:e.volumeUsd24Hr,
-        change:e.changePercent24Hr
-        }
-      )
-    })
+    let isLoading=false;
+    if(data){
+      isLoading=true;
+    }else{
+      isLoading=false;
+    }
+    const rowData = data?.map((e, key) => {
+      //fetchSymbol(e.symbol)
+      const pricePrecisioned = precise(e.priceUsd);
+      const marketCapPrecisioned=precise(e.marketCapUsd);
+      const vwap24HrPrecisioned=precise(e.volumeUsd24Hr);
+      const supplyPrescisioned=precise(e.supply);
+      const volumeUsd24HrPrescisioned=precise(e.volumeUsd24Hr);
+      const changeParcentPrescisioned=precise(e.changePercent24Hr);
+      return {
+        id:key,
+        rank: e.rank,
+        name: e.name,
+        price: pricePrecisioned,
+        marketcap: marketCapPrecisioned,
+        vwap: vwap24HrPrecisioned,
+        supply: supplyPrescisioned,
+        volume: volumeUsd24HrPrescisioned,
+        change: changeParcentPrescisioned,
+      };
+    });
     return (
-      <div>
-        <Table columns={columns} pagination={{ pageSize: 20, total: 100 }}  dataSource={rowData}  />;
+      <div>{isLoading?(<Table
+        columns={columns}
+        pagination={{ pageSize: 20, total: 100 }}
+        dataSource={rowData}
+      />):<Spin />}
       </div>
     );
   }

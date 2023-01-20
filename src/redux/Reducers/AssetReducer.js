@@ -6,7 +6,7 @@ import {
   FETCH_ASSETS_REQUEST,
   FETCH_IMG_SUCCESS,
   FETCH_IMG_ERROR,
-  FETCH_IMG_REQUEST
+  
 } from "../actions/actionTypes";
 
 const intialState = {
@@ -53,8 +53,14 @@ export const fetchAsset = () => {
 
 export const fetchSymbol = async (symbol) => {
   const changedSymbol = symbol.toLowerCase();
-  const result = await axios.get(
-    `https://assets.coincap.io/assets/icons/${changedSymbol}@2x.png`
+  const symbolUrl=`https://assets.coincap.io/assets/icons/${changedSymbol}@2x.png`;
+  console.log("here is correct");
+  const result = await axios.get({
+    method: 'get',
+            headers: { 'Content-Type': 'text/html' },
+            url:symbolUrl ,
+  }
+   
   );
 };
 export function AssetReducer(state = intialState, action) {
